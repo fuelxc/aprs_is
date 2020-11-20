@@ -1,6 +1,14 @@
+require 'simplecov'
+SimpleCov.minimum_coverage 100
+SimpleCov.start do
+  add_filter %r{^/test/}
+  add_filter %r{^/spec/}
+end
+
 require "bundler/setup"
 require "aprs_is"
 require 'byebug'
+
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
