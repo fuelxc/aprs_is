@@ -69,6 +69,20 @@ RSpec.describe AprsIs::Client do
     end
   end
 
+
+  describe '.apply_filter' do
+    it "requires a filter" do
+      expect{ subject.apply_filter }.to raise_error(ArgumentError)
+    end
+
+    it 'sends the message to the socket' do
+      expect(socket).to receive(:puts).with('filter r/1.11111/-11.11111/15')
+      filter = double
+      allow(filter).to receive(:to_s).and_return("r/1.11111/-11.11111/15")
+      subject.apply_filter(filter)
+    end
+  end
+
   describe '.read' do
     it "requires a block" do
       allow(socket).to receive(:gets).and_return('aprs message')

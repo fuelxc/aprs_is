@@ -17,6 +17,10 @@ module AprsIs
       return self
     end
 
+    def apply_filter(filter)
+      send_message(filter_message(filter))
+    end
+
     def read
       while line = socket.gets
         yield line
@@ -34,6 +38,10 @@ module AprsIs
         "user #{call_sign} pass #{passcode_for(call_sign)} vers #{version}",
         filter&.to_s
       ].compact.join(" ")
+    end
+
+    def filter_message(filter)
+      "filter #{filter}"
     end
 
     def passcode_for(call_sign)
