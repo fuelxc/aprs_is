@@ -69,7 +69,6 @@ RSpec.describe AprsIs::Client do
     end
   end
 
-
   describe '.apply_filter' do
     it "requires a filter" do
       expect{ subject.apply_filter }.to raise_error(ArgumentError)

@@ -21,11 +21,19 @@ module AprsIs
       send_message(filter_message(filter))
     end
 
-    def read
+    def read(&block)
       while line = socket.gets
         yield line
       end
     end
+
+    # :nocov:
+    def stream(&block)
+      loop do
+        read(&block)
+      end
+    end
+    # :nocov:
 
     def send_message(message)
       socket.puts message
