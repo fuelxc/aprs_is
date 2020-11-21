@@ -12,8 +12,8 @@ module AprsIs
       @version = version
     end
 
-    def login(call_sign)
-      send_message("user #{call_sign} pass #{passcode_for(call_sign)} vers #{version}")
+    def login(call_sign, filter = nil)
+      send_message(login_message(call_sign, filter))
       return self
     end
 
@@ -28,6 +28,13 @@ module AprsIs
     end
 
     private
+
+    def login_message(call_sign, filter = nil)
+      [
+        "user #{call_sign} pass #{passcode_for(call_sign)} vers #{version}",
+        filter&.to_s
+      ].compact.join(" ")
+    end
 
     def passcode_for(call_sign)
       @passcode = AprsIs::Passcode.new(call_sign)

@@ -49,6 +49,13 @@ RSpec.describe AprsIs::Client do
       expect(subject).to receive(:send_message).with("user AA1AAA pass 17059 vers AprsIs::Client v0.1.0")
       subject.login('AA1AAA')
     end
+
+    it "accepts a filter" do
+      expect(subject).to receive(:send_message).with("user AA1AAA pass 17059 vers AprsIs::Client v0.1.0 r/1.11111/-11.11111/15")
+      filter = double
+      allow(filter).to receive(:to_s).and_return("r/1.11111/-11.11111/15")
+      subject.login('AA1AAA', filter)
+    end
   end
 
   describe '.send_message' do
