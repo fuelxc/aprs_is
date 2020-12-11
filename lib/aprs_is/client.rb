@@ -42,11 +42,12 @@ module AprsIs
     private
 
     def login_message(call_sign, filters = [])
-      filters.unshift('filter') if filters.any
+      filters.unshift('filter') if filters.any?
+      
       [
         "user #{call_sign} pass #{passcode_for(call_sign)} vers #{version}",
         filters.compact.collect(&:to_s)
-      ].compact.join(" ")
+      ].flatten.compact.join(" ")
     end
 
     def filter_message(filter)

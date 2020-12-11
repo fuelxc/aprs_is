@@ -27,7 +27,7 @@ RSpec.describe AprsIs::Client do
     end
 
     it "sets default version" do
-      expect(subject.version).to eq("AprsIs::Client v0.1.0")
+      expect(subject.version).to eq("AprsIs::Client v0.1.2")
     end
 
     it "accepts version" do
@@ -46,15 +46,15 @@ RSpec.describe AprsIs::Client do
     end
 
     it "sends login to the socket" do
-      expect(subject).to receive(:send_message).with("user AA1AAA pass 17059 vers AprsIs::Client v0.1.0")
+      expect(subject).to receive(:send_message).with("user AA1AAA pass 17059 vers AprsIs::Client v0.1.2")
       subject.login('AA1AAA')
     end
 
     it "accepts a filter" do
-      expect(subject).to receive(:send_message).with("user AA1AAA pass 17059 vers AprsIs::Client v0.1.0 r/1.11111/-11.11111/15")
+      expect(subject).to receive(:send_message).with("user AA1AAA pass 17059 vers AprsIs::Client v0.1.2 filter r/1.11111/-11.11111/15")
       filter = double
       allow(filter).to receive(:to_s).and_return("r/1.11111/-11.11111/15")
-      subject.login('AA1AAA', filter)
+      subject.login('AA1AAA', [filter])
     end
   end
 
