@@ -12,8 +12,8 @@ module AprsIs
       @version = version
     end
 
-    def login(call_sign, filter = nil)
-      send_message(login_message(call_sign, filter))
+    def login(call_sign, filters = [])
+      send_message(login_message(call_sign, filters))
       return self
     end
 
@@ -41,10 +41,11 @@ module AprsIs
 
     private
 
-    def login_message(call_sign, filter = nil)
+    def login_message(call_sign, filters = [])
+      filters.unshift('filter') if filters.any
       [
         "user #{call_sign} pass #{passcode_for(call_sign)} vers #{version}",
-        filter&.to_s
+        filters.compact.collect(&:to_s)
       ].compact.join(" ")
     end
 

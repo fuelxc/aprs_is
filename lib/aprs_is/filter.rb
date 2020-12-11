@@ -16,7 +16,7 @@ module AprsIs
     end
 
     def to_s
-      values.unshift(prefix).compact.join("/")
+      values.dup.unshift(prefix).compact.join("/")
     end
 
     private

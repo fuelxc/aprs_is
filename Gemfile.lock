@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    aprs_is (0.1.0)
+    aprs_is (0.1.1)
 
 GEM
   remote: https://rubygems.org/
